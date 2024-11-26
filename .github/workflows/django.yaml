@@ -39,3 +39,10 @@ jobs:
           docker build -t $REPO .
           docker tag $REPO:latest $NAME/$REPO:$IMAGE_TAG
           docker push $NAME/$REPO:$IMAGE_TAG
+
+      - name: AWS Role을 이용한 로그인
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::641022061021:role/django_role
+          role-session-name: sampleSessionName
+          aws-region: ap-northeast-2
