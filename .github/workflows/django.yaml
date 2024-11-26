@@ -49,7 +49,6 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::641022061021:role/django_role
-          role-session-name: sampleSessionName
           aws-region: ap-northeast-2
 
       - name: ECR에 로그인
