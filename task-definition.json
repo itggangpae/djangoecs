@@ -3,6 +3,7 @@
     "containerDefinitions": [
         {
             "name": "djangoecs",
+            "image": "nginx",
             "cpu": 0,
             "portMappings": [
                 {
