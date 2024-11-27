@@ -43,6 +43,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }} 
 
       - name: DockerHub Upload
+        id: dockerhub-image
         env:
           NAME: ${{ secrets.DOCKERHUB_USERNAME}}
           REPO: djangoecs
@@ -51,6 +52,7 @@ jobs:
           docker build -t $REPO .
           docker tag $REPO:latest $NAME/$REPO:$IMAGE_TAG
           docker push $NAME/$REPO:$IMAGE_TAG
+          echo "image=$NAME/$REPO:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -82,7 +84,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ steps.build-image.outputs.image }}
+          image: ${{ steps.dockerhub-image.outputs.image }}
 
       - name: Deploy ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
