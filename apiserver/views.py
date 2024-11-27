@@ -6,5 +6,5 @@ from rest_framework import status
 def index(request):
     data = {"result": "success", 
             "data": [{"id":"itstudy", "name":"군계"},
-                     {"id":"ggangpae1", "name":"아담"}]}
+                     {"id":"ggangpae1", "name":"adam"}]}
     return Response(data, status=status.HTTP_200_OK)
